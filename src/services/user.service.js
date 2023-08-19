@@ -5,14 +5,24 @@ const USER_KEY = 'userDB'
 const LOGGED_IN_USER_KEY = 'loggedInUser'
 export const userService = {
     getUser,
+    getUserByUsername,
     signUp,
     addMove,
-    login,
+    checkCredentials
 }
 
 async function getUser(userId) {
     try {
         const user = await storageService.get(USER_KEY, userId)
+        return user
+    } catch (err) {
+        console.log(err)
+    }
+}
+async function getUserByUsername(username) {
+    try {
+        const users = await storageService.query(USER_KEY)
+        const user = users.find(user => user.username === username)
         return user
     } catch (err) {
         console.log(err)
@@ -49,16 +59,12 @@ async function addMove(fromId, toId, amount) {
         console.log(err)
     }
 }
-async function login({ username, password }) {
+async function checkCredentials({username,password}){
     try {
-        console.log("🚀 ~ file: user.service.js:53 ~ login ~ username:", username)
-        console.log("🚀 ~ file: user.service.js:53 ~ login ~ password:", password)
         const users = await storageService.query(USER_KEY)
         const user = users.find(user => user.username === username && user.password === password)
-        if (!user) throw new Error('User not found')
-        const miniUser = { _id: user._id, username: user.username }
-        sessionStorage.setItem(LOGGED_IN_USER_KEY, JSON.stringify(miniUser))
-        return user
+        if (!user) return false
+        return true
     } catch (err) {
         console.log(err)
     }

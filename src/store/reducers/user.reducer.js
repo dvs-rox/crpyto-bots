@@ -10,17 +10,18 @@ const initialState = {
 }
 
 export function userReducer(state = initialState, action = {}) {
-    console.log("🚀 ~ file: user.reducer.js:13 ~ userReducer ~ action:", action)
     switch (action.type) {
         case 'SIGNUP':
-            try{
+            try {
                 return userService.signUp(action.user)
             }
-            catch(err){
+            catch (err) {
                 console.log(err)
             }
         case 'LOGIN':
             return { ...state, loggedInUser: action.user }
+        case 'LOGOUT':
+            return { ...state, loggedInUser: null }
         default:
             return state
     }

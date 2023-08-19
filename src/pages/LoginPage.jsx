@@ -1,13 +1,20 @@
-import { setLoggedInUser } from "../store/actions/user.actions"
-
-export function LoginPage(){
-    async function onLogin(ev){
+import { login } from "../store/actions/user.actions"
+import { useNavigate } from "react-router-dom"
+export function LoginPage() {
+    const navigate = useNavigate()
+    async function onLogin(ev) {
         ev.preventDefault()
         const username = ev.target.username.value
         const password = ev.target.password.value
-        try{
-            await setLoggedInUser({username,password})
-        }catch(err){
+        try {
+            const res = await login({ username, password })
+            console.log("🚀 ~ file: LoginPage.jsx:11 ~ onLogin ~ res:", res)
+            if (res) navigate('/')
+            else{
+                alert('Wrong username or password')
+            }
+
+        } catch (err) {
             console.log(err)
         }
     }
