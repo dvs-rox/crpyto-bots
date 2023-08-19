@@ -144,7 +144,6 @@ function getContacts(filterBy = null) {
         var contactsToReturn = contacts;
         if (filterBy && filterBy.term) {
             contactsToReturn = filter(filterBy.term)
-            console.log('in filter by term')
         }
         resolve(sort(contactsToReturn))
     })

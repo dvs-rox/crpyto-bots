@@ -12,6 +12,8 @@ export function AppHeader(props){
                     <NavLink to='/'>Home</NavLink>
                     <NavLink to='/contacts'>Contacts</NavLink>
                     <NavLink to='/stats'>Statistics</NavLink>
+                    <NavLink to='/signup'>Signup</NavLink>
+                    <NavLink to='/login'>Login</NavLink>
                 </nav>
             </section>
         </header>

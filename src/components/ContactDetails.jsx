@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, NavLink } from 'react-router-dom'
 import { contactService } from '../services/contact.service.js'
 import { useEffect, useState } from 'react'
 
@@ -26,6 +26,9 @@ export function ContactDetails() {
             <h2>{contact.name}</h2>
             <h3>{contact.email}</h3>
             <h3>{contact.phone}</h3>
+            <div className='actions'>
+                <NavLink to={`/contacts/edit/${contact._id}`}>Edit</NavLink>
+            </div>
         </section>
     )
 }
